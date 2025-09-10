@@ -290,11 +290,12 @@ export class RecordsComponent implements OnInit {
       this.recordsService.addRecord(this.record).subscribe({
         next: (data) => {
           this.visibleError = false;
-          this.form.reset();
+          this.cancelEdition();
+          this.form.resetForm();
           this.getRecords();
         },
         error: (err) => {
-          console.log(err);
+          console.error('Error adding record:', err);
           this.visibleError = true;
           this.controlError(err);
         },
@@ -304,10 +305,11 @@ export class RecordsComponent implements OnInit {
         next: (data) => {
           this.visibleError = false;
           this.cancelEdition();
-          this.form.reset();
+          this.form.resetForm();
           this.getRecords();
         },
         error: (err) => {
+          console.error('Error updating record:', err);
           this.visibleError = true;
           this.controlError(err);
         },
@@ -341,7 +343,12 @@ export class RecordsComponent implements OnInit {
   }
 
   edit(record: IRecord) {
+    // Create a new object with all properties from record
     this.record = { ...record };
+    
+    // Ensure groupId is properly set (could be null or a number)
+    this.record.groupId = record.groupId || null;
+    
     if (this.record.stock === null || this.record.stock === undefined) {
       this.record.stock = 1;
     }

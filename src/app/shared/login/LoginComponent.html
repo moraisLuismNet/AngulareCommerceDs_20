@@ -16,10 +16,16 @@
         email
         [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}"
       >
-      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
-        <div *ngIf="email.errors?.['required']">Email is required</div>
-        <div *ngIf="email.errors?.['email']">Please enter a valid email address</div>
-      </div>
+      @if (email.invalid && (email.dirty || email.touched)) {
+        <div class="invalid-feedback">
+          @if (email.errors?.['required']) {
+            <div>Email is required</div>
+          }
+          @if (email.errors?.['email']) {
+            <div>Please enter a valid email address</div>
+          }
+        </div>
+      }
     </div>
     
     <div class="form-group mt-3">
@@ -36,10 +42,16 @@
         minlength="6"
         [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}"
       >
-      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
-        <div *ngIf="password.errors?.['required']">Password is required</div>
-        <div *ngIf="password.errors?.['minlength']">The password must have at least 6 characters</div>
-      </div>
+      @if (password.invalid && (password.dirty || password.touched)) {
+        <div class="invalid-feedback">
+          @if (password.errors?.['required']) {
+            <div>Password is required</div>
+          }
+          @if (password.errors?.['minlength']) {
+            <div>The password must have at least 6 characters</div>
+          }
+        </div>
+      }
     </div>
     
     <button 

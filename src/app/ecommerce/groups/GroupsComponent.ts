@@ -59,7 +59,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
     nameGroup: '',
     imageGroup: null,
     photo: null,
-    musicGenreId: 0,
+    musicGenreId: null,
     musicGenreName: '',
     musicGenre: '',
   };

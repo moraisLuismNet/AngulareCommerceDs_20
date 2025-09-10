@@ -13,9 +13,9 @@
             id="group"
             style="font-size: 0.9rem"
           >
-            <option value="">Select a Group</option>
+            <option [ngValue]="null">Select a Group</option>
             @for (group of groups; track group.idGroup) {
-              <option [value]="group.idGroup">
+              <option [ngValue]="group.idGroup">
                 {{ group.nameGroup }}
               </option>
             }
