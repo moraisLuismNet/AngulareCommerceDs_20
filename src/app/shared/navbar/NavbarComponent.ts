@@ -53,13 +53,13 @@ export class NavbarComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
         switchMap((email) => {
           this.emailUser = email;
-          this.cdr.markForCheck();
+          this.cdr.detectChanges();
           if (email) {
             // Check cart status and then sync
             return this.cartService.getCartStatus(email).pipe(
               tap((status: { enabled: boolean }) => {
                 this.cartEnabled = status.enabled;
-                this.cdr.markForCheck();
+                this.cdr.detectChanges();
                 if (status.enabled) {
                   this.cartService.syncCartWithBackend(email);
                 } else {
@@ -79,7 +79,7 @@ export class NavbarComponent implements OnInit {
     // Subscription to user role
     this.userService.role$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((role) => {
       this.role = role;
-      this.cdr.markForCheck();
+      this.cdr.detectChanges();
     });
 
     // Subscription to cart item count
@@ -87,7 +87,7 @@ export class NavbarComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((count) => {
         this.cartItemsCount = count;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       });
 
     // Subscription to cart total
@@ -95,7 +95,7 @@ export class NavbarComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((total) => {
         this.cartTotal = total;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       });
 
     // Subscription to router events
@@ -108,7 +108,7 @@ export class NavbarComponent implements OnInit {
         this.currentRoute = event.url;
         this.cdr.detectChanges(); // Trigger change detection
       });
-    
+
     // Initial route check
     this.currentRoute = this.router.url;
     this.cdr.detectChanges();
